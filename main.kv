@@ -72,3 +72,19 @@
         color: 1, 0.5, 0, 1
 
 
+    BoxLayout:
+        Slider:
+            id: slider
+            min: 0
+            max: 100
+            x: root.width * 0.06
+            y: root.width * -0.05
+            step: 1
+            orientation: 'horizontal'
+
+        Label:
+            text: str(slider.value)
+            x: root.width * 0.06
+            y: root.width * -0.05
+            color: 1, 0.5, 0, 1
+
