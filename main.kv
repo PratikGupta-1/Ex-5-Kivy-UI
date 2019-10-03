@@ -22,6 +22,8 @@
 
     DPEAButton:
         id: logo_image_button
+#        text: "here"
+#        color: 1, 0, 0, 1
         source: "../../pidev/kivy/images/DPEALogoTransparent.png"
         size: 100, 100
         x: root.width * 0.5
@@ -50,7 +52,7 @@
         id: countButton
         text: "0"
         size: 100, 100
-        x: root.width * 0.2
+        x: root.width * 0.6
         y: root.width * 0.2
         on_release: self.text = root.iterateButton(self.text)
 
@@ -75,16 +77,26 @@
     BoxLayout:
         Slider:
             id: slider
+            size: 400, 30
+#            size_hint: 0.2, 0.2
             min: 0
             max: 100
             x: root.width * 0.06
-            y: root.width * -0.05
+            y: root.width * 0.1
             step: 1
             orientation: 'horizontal'
 
         Label:
             text: str(slider.value)
             x: root.width * 0.06
-            y: root.width * -0.05
+            y: root.width * -0.3
             color: 1, 0.5, 0, 1
 
+
+    DPEAButton:
+        id: newScreenButton
+        text: "Go To New Screen"
+        size: 100, 100
+        x: root.width * 0.4
+        y: root.width * 0.2
+        on_press: root.goToNewScreen()

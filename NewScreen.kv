@@ -1,0 +1,15 @@
+<NewScreen>
+    name: 'NewScreen'
+    FloatLayout:
+        size_hint: None, None
+
+    DPEAButton:
+        id: goBackButton
+        text: 'Go Back'
+        size: 100, 100
+        x: root.width * 0
+        y: root.height * 0
+        color: 0.2, 1, 0.7, 1
+        on_press: root.returnToMain()
+
+

@@ -20,6 +20,7 @@ MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
 SCREEN_MANAGER = ScreenManager()
 MAIN_SCREEN_NAME = 'main'
 ADMIN_SCREEN_NAME = 'admin'
+NEW_SCREEN = 'NewScreen'
 
 
 class ProjectNameGUI(App):
@@ -50,7 +51,7 @@ class MainScreen(Screen):
         Function called on button touch event for button with id: testButton
         :return: None
         """
-        PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='main', text="Test", pause_duration=5)
+        PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='main', text="Test", pause_duration=1)
 
     def admin_action(self):
         """
@@ -74,6 +75,10 @@ class MainScreen(Screen):
             return "Motor Off"
         else:
             return "Motor On"
+
+
+    def goToNewScreen(self):
+        SCREEN_MANAGER.current = NEW_SCREEN
 
 
 class AdminScreen(Screen):
@@ -118,10 +123,17 @@ class AdminScreen(Screen):
         """
         quit()
 
+
 class NewScreen(Screen):
 
     def init__(self, **kwargs):
         Builder.load_file('NewScreen.kv')
+        super(NewScreen, self).__init__(**kwargs)
+
+    @staticmethod
+    def returnToMain():
+        SCREEN_MANAGER.current = MAIN_SCREEN_NAME
+        quit()
 
 
 
@@ -137,6 +149,7 @@ SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
 SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))
+SCREEN_MANAGER.add_widget(NewScreen(name = NEW_SCREEN))
 
 """
 MixPanel
