@@ -12,6 +12,7 @@ from pidev.kivy import DPEAButton
 from pidev.kivy import ImageButton
 from kivy.properties import ObjectProperty
 from kivy.uix.slider import Slider
+from kivy.animation import Animation
 s = Slider(min=-100, max=100, value=25)
 
 MIXPANEL_TOKEN = "x"
@@ -78,6 +79,7 @@ class MainScreen(Screen):
 
 
     def goToNewScreen(self):
+
         SCREEN_MANAGER.current = NEW_SCREEN
 
 
@@ -126,14 +128,18 @@ class AdminScreen(Screen):
 
 class NewScreen(Screen):
 
-    def init__(self, **kwargs):
+    def __init__(self, **kwargs):
         Builder.load_file('NewScreen.kv')
         super(NewScreen, self).__init__(**kwargs)
 
     @staticmethod
     def returnToMain():
         SCREEN_MANAGER.current = MAIN_SCREEN_NAME
-        quit()
+#        quit()
+
+    def animateButton(self):
+        self.anim = Animation(x=500, y=0,)
+        self.anim.start(self.ids.animatedButton)
 
 
 

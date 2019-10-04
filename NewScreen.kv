@@ -3,13 +3,28 @@
     FloatLayout:
         size_hint: None, None
 
-    DPEAButton:
-        id: goBackButton
-        text: 'Go Back'
+    ImageButton:
         size: 100, 100
-        x: root.width * 0
-        y: root.height * 0
-        color: 0.2, 1, 0.7, 1
+        id: GoBackButton
+        source: "/home/pratikgupta/Desktop/kittenito.png"
+        x: root.width * 0.1
+        y: root.width * 0.37
         on_press: root.returnToMain()
 
+
+    ImageButton:
+        size: 100, 100
+        id: animatedButton
+        source: "/home/pratikgupta/Desktop/car.png"
+        x: root.width * 0
+        y: root.width * 0
+        on_press: root.animateButton()
+
+    Label:
+        id: JoystickPosition
+
+        x: root.width * -0.45
+        y: root.width * -0.05
+        color: 1, 0.5, 0, 1
+        text: root.joystick.get_axis(0)
 
