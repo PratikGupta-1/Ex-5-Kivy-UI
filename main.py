@@ -13,7 +13,12 @@ from pidev.kivy import ImageButton
 from kivy.properties import ObjectProperty
 from kivy.uix.slider import Slider
 from kivy.animation import Animation
+from threading import Thread
+
+from pidev.Joystick import Joystick
+
 s = Slider(min=-100, max=100, value=25)
+joystick = Joystick(0, True)
 
 MIXPANEL_TOKEN = "x"
 MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
@@ -46,6 +51,8 @@ class MainScreen(Screen):
     """
     countButton = ObjectProperty(None)
     counter = 0
+    x_position_joystick1 = ObjectProperty()
+    y_position_joystick1 = ObjectProperty()
 
     def pressed(self):
         """
@@ -81,6 +88,14 @@ class MainScreen(Screen):
     def goToNewScreen(self):
 
         SCREEN_MANAGER.current = NEW_SCREEN
+
+    def updateJoystick(self):
+        while True:
+            self.x_position_joystick1 = self.joystick.get_axis('x')
+            self.ids.x.PositionJoystick = (self.x_position_joystick1 * self.width)
+
+            self.y_position_joystick1 = self.joystick.get_axis('y')
+            self.ids.y.PositionJoystick = (self.y_position_joystick1 * self.width)
 
 
 class AdminScreen(Screen):
