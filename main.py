@@ -95,6 +95,7 @@ class MainScreen(Screen):
         x = Thread(target=self.updateJoystick)
         x.start()
 
+
     def updateJoystick(self):
 
         while True:
