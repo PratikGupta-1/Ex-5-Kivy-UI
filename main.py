@@ -104,6 +104,7 @@ class MainScreen(Screen):
 
             self.y_position_joystick1 = self.joystick.get_axis('y')
             self.ids.PositionJoystick.center_y = (self.y_position_joystick1 * (self.height / 2) + (self.height / 2))
+            self.ids.PositionJoystick.text = "x= {:.3f}, y= {:.3f}".format(self.joystick.get_axis('x'), self.joystick.get_axis('y'))
             sleep(.1)
             #print(str(self.x_position_joystick1))
             #print(str(self.y_position_joystick1))
