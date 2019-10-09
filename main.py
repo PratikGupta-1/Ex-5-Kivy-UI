@@ -14,11 +14,11 @@ from kivy.properties import ObjectProperty
 from kivy.uix.slider import Slider
 from kivy.animation import Animation
 from threading import Thread
+from time import sleep
 
 from pidev.Joystick import Joystick
 
 s = Slider(min=-100, max=100, value=25)
-joystick = Joystick(0, True)
 
 MIXPANEL_TOKEN = "x"
 MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
@@ -49,6 +49,7 @@ class MainScreen(Screen):
     """
     Class to handle the main screen and its associated touch events
     """
+    joystick = Joystick(0, True)
     countButton = ObjectProperty(None)
     counter = 0
     x_position_joystick1 = ObjectProperty()
@@ -89,13 +90,25 @@ class MainScreen(Screen):
 
         SCREEN_MANAGER.current = NEW_SCREEN
 
+
+    def start_joy_thread(self):
+        x = Thread(target=self.updateJoystick)
+        x.start()
+
     def updateJoystick(self):
+
         while True:
+            #print("hello")
             self.x_position_joystick1 = self.joystick.get_axis('x')
-            self.ids.x.PositionJoystick = (self.x_position_joystick1 * self.width)
+            self.ids.PositionJoystick.center_x = (self.x_position_joystick1 * (self.width / 2) + (self.width / 2))
 
             self.y_position_joystick1 = self.joystick.get_axis('y')
-            self.ids.y.PositionJoystick = (self.y_position_joystick1 * self.width)
+            self.ids.PositionJoystick.center_y = (self.y_position_joystick1 * (self.height / 2) + (self.height / 2))
+            sleep(.1)
+            #print(str(self.x_position_joystick1))
+            #print(str(self.y_position_joystick1))
+
+
 
 
 class AdminScreen(Screen):
