@@ -14,9 +14,11 @@ from kivy.properties import ObjectProperty
 from kivy.uix.slider import Slider
 from kivy.animation import Animation
 from threading import Thread
-from time import sleep
 
 from pidev.Joystick import Joystick
+from pidev.stepper import stepper
+
+STEPPER = stepper()
 
 s = Slider(min=-100, max=100, value=25)
 
