@@ -14,6 +14,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.slider import Slider
 from kivy.animation import Animation
 from threading import Thread
+from time import sleep
 
 from pidev.Joystick import Joystick
 from pidev.stepper import stepper
@@ -73,7 +74,7 @@ class MainScreen(Screen):
         SCREEN_MANAGER.current = 'passCode'
 
     def iterateButton(self, val):
-        return str(int(val)+1)
+        return str(int(val) + 1)
 
     def changeButton(self, val):
         if val == "On":
@@ -87,33 +88,29 @@ class MainScreen(Screen):
         else:
             return "Motor On"
 
-
     def goToNewScreen(self):
 
         SCREEN_MANAGER.current = NEW_SCREEN
-
 
     def start_joy_thread(self):
         x = Thread(target=self.updateJoystick)
         x.start()
 
-
     def updateJoystick(self):
 
         while True:
-            #print("hello")
+            # print("hello")
             self.x_position_joystick1 = self.joystick.get_axis('x')
             self.ids.PositionJoystick.center_x = (self.x_position_joystick1 * (self.width / 2) + (self.width / 2))
 
             self.y_position_joystick1 = self.joystick.get_axis('y')
             self.ids.PositionJoystick.center_y = (self.y_position_joystick1 * (self.height / 2) + (self.height / 2))
-            self.ids.PositionJoystick.text = "x= {:.3f}, y= {:.3f}".format(self.joystick.get_axis('x'), self.joystick.get_axis('y'))
+
+            self.ids.PositionJoystick.text = "x= {:.3f}, y= {:.3f}".format(self.joystick.get_axis('x'),
+                                                                           self.joystick.get_axis('y'))
             sleep(.1)
-            #print(str(self.x_position_joystick1))
-            #print(str(self.y_position_joystick1))
-
-
-
+            # print(str(self.x_position_joystick1))
+            # print(str(self.y_position_joystick1))
 
 
 class AdminScreen(Screen):
@@ -129,8 +126,10 @@ class AdminScreen(Screen):
         """
         Builder.load_file('AdminScreen.kv')
 
-        PassCodeScreen.set_admin_events_screen(ADMIN_SCREEN_NAME)  # Specify screen name to transition to after correct password
-        PassCodeScreen.set_transition_back_screen(MAIN_SCREEN_NAME)  # set screen name to transition to if "Back to Game is pressed"
+        PassCodeScreen.set_admin_events_screen(
+            ADMIN_SCREEN_NAME)  # Specify screen name to transition to after correct password
+        PassCodeScreen.set_transition_back_screen(
+            MAIN_SCREEN_NAME)  # set screen name to transition to if "Back to Game is pressed"
 
         super(AdminScreen, self).__init__(**kwargs)
 
@@ -168,15 +167,12 @@ class NewScreen(Screen):
     @staticmethod
     def returnToMain():
         SCREEN_MANAGER.current = MAIN_SCREEN_NAME
-#        quit()
+
+    #        quit()
 
     def animateButton(self):
-        self.anim = Animation(x=500, y=0,)
+        self.anim = Animation(x=500, y=0, )
         self.anim.start(self.ids.animatedButton)
-
-
-
-
 
 
 """
@@ -188,7 +184,7 @@ SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
 SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))
-SCREEN_MANAGER.add_widget(NewScreen(name = NEW_SCREEN))
+SCREEN_MANAGER.add_widget(NewScreen(name=NEW_SCREEN))
 
 """
 MixPanel
